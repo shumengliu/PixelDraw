@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>replit</title>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+<!--  -->
+<body>
+    <script src="script.js"></script>
+    <div id="toolbox"> 
+      <div class="slide-container">
+        <div class="slider">
+          <label>Width</label>
+          <input type="range" min="10" max="50" value="30" class="slider" id="grid-width">
+          <span id="grid-width-value">00</span>          
+          </div>
+
+        <div class="slider">
+          <label>Height</label>
+          <input type="range" min="10" max="50" value="30" class="slider" id="grid-height">
+          <span id="grid-height-value">00</span>
+        </div>
+      </div>
+      <div class="button-container">
+        <button id="create-grid" onclick=createGrid()>
+          Create Grid
+        </button>
+        <button id="clear-grid" onclick=clearGrid()>
+          Clear Grid
+        </button>
+      </div>
+      <div class="color-container">
+        <input type="color" id="color-picker" value="#e66465">
+      </div>
+    </div>
+    <div id="grid-container"></div>
+    <script src="grid.ts"></script>
+  
+</body>
+
+</html>
