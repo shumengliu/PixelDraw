@@ -18,13 +18,13 @@
       <div class="slide-container">
         <div class="slider">
           <label>Width</label>
-          <input type="range" min="4" max="50" value="4" class="slider" id="grid-width">
+          <input type="range" min="10" max="50" value="30" class="slider" id="grid-width">
           <span id="grid-width-value">00</span>          
           </div>
 
         <div class="slider">
           <label>Height</label>
-          <input type="range" min="4" max="50" value="4" class="slider" id="grid-height">
+          <input type="range" min="10" max="50" value="30" class="slider" id="grid-height">
           <span id="grid-height-value">00</span>
         </div>
       </div>
@@ -35,6 +35,9 @@
         </button>
         <button id="clear-grid" onclick=clearGrid()>
           Clear Grid
+        </button>
+        <button id="undo-button" onclick=undo()>
+          Undo
         </button>
         <div class="color-container">
           <label >Pick a Color</label>

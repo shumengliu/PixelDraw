@@ -5,6 +5,7 @@ const MYAPP = {
   isMouseDown: false,
   color: DEFAULT_COLOR,
   grid: [],
+  history: [],
 };
 
 window.onload = function() {
@@ -70,7 +71,7 @@ function generateMatrix(rows, cols){
     }
 }
 
-function refreshGrid(){
+function refreshTable(){
   MYAPP.grid.forEach((row, rowIndex) => {
     row.forEach((color, colIndex) => {
       const cell = document.getElementById('table').rows[rowIndex].cells[colIndex];
@@ -84,20 +85,20 @@ function changeCellColor(event){
   const col = event.target.cellIndex; // get the cell index
 
   MYAPP.grid[row][col] = MYAPP.color;
-  
-  refreshGrid();
+
+  refreshTable();
 }
 
 function handleMouseDown(e){
+  //  store current grid in history
+  MYAPP.history.push(JSON.parse(JSON.stringify(MYAPP.grid)));
+
   changeCellColor(e);
   MYAPP.isMouseDown = true;
 }
 
 function handleMouseUp(e){
   MYAPP.isMouseDown = false;
-  MYAPP.grid.forEach(row => {
-    console.log(row);
-  });
 }
 
 function handleMouseOver(e){
@@ -116,11 +117,21 @@ function applyFunctionToEveryCell(grid, f) {
   }
 }
 
+function undo(){
+  if (MYAPP.history.length < 1){
+    return;
+  }
+  
+  MYAPP.grid = MYAPP.history.pop();
+
+  refreshTable();
+}
+
 function addEventListenersToCells(grid){
   applyFunctionToEveryCell(grid, (cell) => {
-      cell.addEventListener('mousedown', handleMouseDown);
-      cell.addEventListener('mouseup', handleMouseUp);
-      cell.addEventListener('mouseover', handleMouseOver);
+    cell.addEventListener('mousedown', handleMouseDown);
+    cell.addEventListener('mouseup', handleMouseUp);
+    cell.addEventListener('mouseover', handleMouseOver);
   })
 }
 
