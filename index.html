@@ -7,9 +7,13 @@
   <title>replit</title>
   <link href="style.css" rel="stylesheet" type="text/css" />
 </head>
-<!--  -->
+
 <body>
-    <script src="script.js"></script>
+
+  <h1>Pixel Draw</h1>
+
+  <main class="wrapper">
+
     <div id="toolbox"> 
       <div class="slide-container">
         <div class="slider">
@@ -24,6 +28,7 @@
           <span id="grid-height-value">00</span>
         </div>
       </div>
+
       <div class="button-container">
         <button id="create-grid" onclick=createGrid()>
           Create Grid
@@ -31,14 +36,20 @@
         <button id="clear-grid" onclick=clearGrid()>
           Clear Grid
         </button>
+        <div class="color-container">
+          <label >Pick a Color</label>
+          <input type="color" id="color-picker" value="#e66465">
+        </div>  
       </div>
-      <div class="color-container">
-        <input type="color" id="color-picker" value="#e66465">
-      </div>
+
     </div>
+
     <div id="grid-container"></div>
-    <script src="grid.ts"></script>
-  
+
+    <script src="script.js"></script>
+
+  </main>
+
 </body>
 
 </html>
