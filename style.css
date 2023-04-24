@@ -1,13 +1,38 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
 html {
   height: 100%;
   width: 100%;
 }
+
+body {
+  background-image: linear-gradient(#080a0e, #0a0f1a); 
+  color: white;
+  min-height: 100vh;
+}
+
+.wrapper {
+  width: clamp(50%, 700px, 80%);
+  margin: auto;
+  background-image: linear-gradient(#141515, #1b1d2c);
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 4px 4px 40px 0px #FFFFFF40;
+  min-height: 70vh;
+}
+
 table {
     border-collapse: collapse;
+    margin: auto;
 }
 
 .gridCell {
-    border: 1px solid black;
+    border: 0.5px solid #444;
     width: 10px;
     height: 10px;
 }
@@ -22,4 +47,19 @@ table {
   padding: 10px;
   background-color: #a8a8a8;
   border-radius: 10px;
+}
+
+h1 {
+  text-align: center;
+  padding: 20px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+button {
+  padding: 10px;
 }

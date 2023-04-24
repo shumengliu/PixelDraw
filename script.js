@@ -1,11 +1,11 @@
-console.log("Javascript");
-
 const DEFAULT_COLOR = '#FFF000';
 const EMPTY_COLOR = '#FFFFFF';
 
 const MYAPP = {
   isMouseDown: false,
   color: DEFAULT_COLOR,
+  grid: [],
+  history: [],
 };
 
 window.onload = function() {
@@ -41,7 +41,7 @@ function addEventListenersForSliderValues(){
   })
 }
 
-function createGridWithSpecificSize(rows, cols) {
+function generateHTMLTable(rows, cols) {
     const table = document.createElement('table');
     table.setAttribute('id', 'table');
 
@@ -61,13 +61,39 @@ function createGridWithSpecificSize(rows, cols) {
     return table;
 }
 
-function changeBackgroundColorOfCell(event){
-  const cell = event.target;
-  cell.style.backgroundColor = MYAPP.color;
+function generateMatrix(rows, cols){
+    for (let row = 0; row < rows; row++) {
+      MYAPP.grid.push([]);
+
+      for (let col = 0; col < cols; col++) {
+        MYAPP.grid[row].push("#00000000");
+      }
+    }
+}
+
+function refreshTable(){
+  MYAPP.grid.forEach((row, rowIndex) => {
+    row.forEach((color, colIndex) => {
+      const cell = document.getElementById('table').rows[rowIndex].cells[colIndex];
+      cell.style.backgroundColor = color;
+    })
+  });
+}
+
+function changeCellColor(event){
+  const row = event.target.parentNode.rowIndex; // get the row index
+  const col = event.target.cellIndex; // get the cell index
+
+  MYAPP.grid[row][col] = MYAPP.color;
+
+  refreshTable();
 }
 
 function handleMouseDown(e){
-  changeBackgroundColorOfCell(e);
+  //  store current grid in history
+  MYAPP.history.push(JSON.parse(JSON.stringify(MYAPP.grid)));
+
+  changeCellColor(e);
   MYAPP.isMouseDown = true;
 }
 
@@ -79,7 +105,8 @@ function handleMouseOver(e){
   if (!MYAPP.isMouseDown){
     return;
   }
-  changeBackgroundColorOfCell(e);
+
+  changeCellColor(e);
 }
 
 function applyFunctionToEveryCell(grid, f) {
@@ -90,11 +117,21 @@ function applyFunctionToEveryCell(grid, f) {
   }
 }
 
+function undo(){
+  if (MYAPP.history.length < 1){
+    return;
+  }
+  
+  MYAPP.grid = MYAPP.history.pop();
+
+  refreshTable();
+}
+
 function addEventListenersToCells(grid){
   applyFunctionToEveryCell(grid, (cell) => {
-      cell.addEventListener('mousedown', handleMouseDown);
-      cell.addEventListener('mouseup', handleMouseUp);
-      cell.addEventListener('mouseover', handleMouseOver);
+    cell.addEventListener('mousedown', handleMouseDown);
+    cell.addEventListener('mouseup', handleMouseUp);
+    cell.addEventListener('mouseover', handleMouseOver);
   })
 }
 
@@ -107,11 +144,12 @@ function createGrid() {
     existingTable.remove()
   }
 
-    //  add new grid
+  //  generate grid
   const gridWidth = document.getElementById('grid-width').value;
   const gridHeight = document.getElementById('grid-height').value;
   const gridContainer = document.getElementById('grid-container');
-  const grid = createGridWithSpecificSize(gridWidth, gridHeight);
+  const grid = generateHTMLTable(gridWidth, gridHeight);
+  generateMatrix(gridWidth, gridHeight);
   addEventListenersToCells(grid);
   gridContainer.appendChild(grid);
 }
