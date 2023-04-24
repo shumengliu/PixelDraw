@@ -1,5 +1,3 @@
-console.log("Javascript");
-
 const DEFAULT_COLOR = '#FFF000';
 const EMPTY_COLOR = '#FFFFFF';
 
