@@ -19,6 +19,11 @@ body {
 .wrapper {
   width: clamp(50%, 700px, 80%);
   margin: auto;
+  background-image: linear-gradient(#141515, #1b1d2c);
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 4px 4px 40px 0px #FFFFFF40;
+  min-height: 70vh;
 }
 
 table {
